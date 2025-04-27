@@ -63,4 +63,10 @@ public class MeetingRestController {
         Meeting meeting1 = meetingService.add(meeting);
         return new ResponseEntity<Meeting>(meeting1, HttpStatus.CREATED);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> removeMeeting(@PathVariable("id") Long id) {
+        meetingService.remove(id);
+        return new ResponseEntity<>("Meeting Deleted", HttpStatus.OK);
+    }
 }

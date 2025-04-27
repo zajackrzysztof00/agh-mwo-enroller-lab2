@@ -55,4 +55,13 @@ public class MeetingService {
 		transaction.commit();
 		return meeting;
 	}
+
+	public void remove(Long id) {
+		Session session = connector.getSession();
+		session = HibernateUtil.getSessionFactory().openSession();
+		Meeting meeting = findById(id);
+		Transaction transaction = session.beginTransaction();
+		session.remove(meeting);
+		transaction.commit();
+	}
 }
