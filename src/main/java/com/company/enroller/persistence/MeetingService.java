@@ -64,4 +64,13 @@ public class MeetingService {
 		session.remove(meeting);
 		transaction.commit();
 	}
+
+	public void update(Long id, Meeting meeting, Meeting meetingToUpdate) {
+		String newDescription = meeting.getDescription();
+		meetingToUpdate.setDescription(newDescription);
+		Session session = connector.getSession();
+		Transaction transaction = session.beginTransaction();
+		session.merge(meetingToUpdate);
+		transaction.commit();
+	}
 }
