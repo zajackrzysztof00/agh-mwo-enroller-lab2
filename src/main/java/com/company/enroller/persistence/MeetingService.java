@@ -2,6 +2,7 @@ package com.company.enroller.persistence;
 
 import java.util.Collection;
 
+import com.company.enroller.model.Participant;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -39,4 +40,11 @@ public class MeetingService {
 		return meeting;
 	}
 
+	public Meeting findByTitle(String title) {
+		Session session = connector.getSession();
+		session = HibernateUtil.getSessionFactory().openSession();
+		org.hibernate.Query query = session.createQuery("from Meeting where title = :title");
+		Meeting meeting = (Meeting) query.setParameter("title", title).uniqueResult();
+		return meeting;
+	}
 }
