@@ -40,14 +40,6 @@ public class MeetingService {
 		return meeting;
 	}
 
-	public Meeting findByTitle(String title) {
-		Session session = connector.getSession();
-		session = HibernateUtil.getSessionFactory().openSession();
-		org.hibernate.Query query = session.createQuery("from Meeting where title = :title");
-		Meeting meeting = (Meeting) query.setParameter("title", title).uniqueResult();
-		return meeting;
-	}
-
 	public Meeting add(Meeting meeting) {
 		Session session = connector.getSession();
 		Transaction transaction = session.beginTransaction();
