@@ -33,10 +33,12 @@ public class MeetingService {
 		return query.list();
 	}
 
-	public Meeting findById(Long id) {
+	public Meeting findById(long id) {
 		Session session = connector.getSession();
 		session = HibernateUtil.getSessionFactory().openSession();
-		Meeting meeting = session.get(Meeting.class, id);
+		org.hibernate.Query query = session.createQuery("from Meeting where id = :id");
+		Meeting meeting = (Meeting) query.setParameter("id", id).uniqueResult();
+		System.out.println(meeting);
 		return meeting;
 	}
 
@@ -48,7 +50,7 @@ public class MeetingService {
 		return meeting;
 	}
 
-	public void remove(Long id) {
+	public void remove(long id) {
 		Session session = connector.getSession();
 		session = HibernateUtil.getSessionFactory().openSession();
 		Meeting meeting = findById(id);
@@ -57,7 +59,7 @@ public class MeetingService {
 		transaction.commit();
 	}
 
-	public void update(Long id, Meeting meeting, Meeting meetingToUpdate) {
+	public void update(long id, Meeting meeting, Meeting meetingToUpdate) {
 		String newDescription = meeting.getDescription();
 		meetingToUpdate.setDescription(newDescription);
 		Session session = connector.getSession();

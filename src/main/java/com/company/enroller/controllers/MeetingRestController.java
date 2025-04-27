@@ -50,7 +50,7 @@ public class MeetingRestController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getMeeting(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getMeeting(@PathVariable("id") long id) {
         Meeting meeting = meetingService.findById(id);
         if (meeting == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -65,13 +65,14 @@ public class MeetingRestController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> removeMeeting(@PathVariable("id") Long id) {
+    public ResponseEntity<?> removeMeeting(@PathVariable("id") long id) {
+        System.out.println(id);
         meetingService.remove(id);
         return new ResponseEntity<>("Meeting Deleted", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public  ResponseEntity<?> updateMeeting(@PathVariable("id") Long id, @RequestBody Meeting meeting) {
+    public  ResponseEntity<?> updateMeeting(@PathVariable("id") long id, @RequestBody Meeting meeting) {
         if (meetingService.findById(meeting.getId()) == null) {
             Meeting meeting1 = meetingService.add(meeting);
             return new ResponseEntity("Unable to find" + meeting.getTitle(), HttpStatus.CONFLICT);
