@@ -47,4 +47,12 @@ public class MeetingService {
 		Meeting meeting = (Meeting) query.setParameter("title", title).uniqueResult();
 		return meeting;
 	}
+
+	public Meeting add(Meeting meeting) {
+		Session session = connector.getSession();
+		Transaction transaction = session.beginTransaction();
+		session.saveOrUpdate(meeting);
+		transaction.commit();
+		return meeting;
+	}
 }
